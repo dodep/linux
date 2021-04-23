@@ -1,0 +1,55 @@
+1. Inside vue project root dir (dir where package.json) create Dockerfile.
+
+$ nano Dockerfile
+
+#build stage
+
+#image to build from
+FROM node:15.11.0-alpine3.10 AS build-stage
+
+#create dir inside image
+WORKDIR /app
+
+#copy config file to image
+COPY package*.json ./
+
+#install node modules
+RUN npm install
+
+#copy files to image
+COPY . .
+
+#build app
+RUN npm run build
+
+
+#production stage
+
+#image to build from
+FROM nginx:1.19-alpine AS production-stage
+
+#copy artefact from previous image into this image
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+#expose image port to the host machine
+EXPOSE 80
+
+#start nginx server
+CMD ["nginx", "-g", "daemon off;"] 
+___________________________
+2. Create docker image (inside project root dir, where Dockerfile).
+
+$ docker build -t <image_name>:<image_version> .
+eg.
+$ docker build -t vue_nginx:v1.0.0 .
+___________________________
+3. Run docker image.
+
+$ docker run -d --name vue_nginx -p 80:80 vue_nginx:v1.0.0
+___________________________
+ 
+Jenkins job:
+
+sudo docker rm -f vue_nginx 2>/dev/null #remove previous container and free the port that it uses 
+sudo docker build -t vue_nginx:v1.0.0 . 
+sudo docker run -d --name vue_nginx -p 80:80 vue_nginx:v1.0.0

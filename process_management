@@ -1,0 +1,85 @@
+####################PROCESS MANAGMENT###########################
+
+Monitor. 
+
+$ ps
+$ top
+$ htop
+_____________________________________________
+Kill.
+
+Kill a process by ID.
+$ kill 
+
+Kill a process by name.
+$ killall
+
+e.g.
+$ killall -9 chrome
+
+also
+
+$ pkill chrome
+_____________________________________________
+Kill process on TCP port.
+
+$ fuser -k  123/tcp
+_____________________________________________
+Find process on tcp port.
+
+$ sudo fuser 3306/tcp
+_____________________________________________
+Find process on ports.
+
+$ sudo netstat -lpn
+_____________________________________________
+Background/Foreground.
+
+Send process to the background(&).
+
+e.g.
+
+$ nano file.txt &
+[1] 9958
+_____________________________________________
+List jobs in the current terminal.
+
+$ jobs
+[1]+  Stopped                 nano file1.txt
+_____________________________________________
+From background to foreground.
+
+$ fg 1
+_____________________________________________
+if during process push Ctrl-Z it's become suspended,
+to exec it in background use bg command.
+
+$ bg
+______________________________________________
+Change priority of process(from -20 to 19).
+
+$ nice
+
+of running process
+
+$ renice
+______________________________________________
+Find PID by name.
+
+$ pgrep chrome
+2462
+2884
+2885
+2905
+3000
+3003
+3036
+3178
+4110
+______________________________________________
+Display a tree of processes.
+
+$ pstree
+______________________________________________
+
+

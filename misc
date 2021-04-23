@@ -1,0 +1,268 @@
+1. file - determine file type
+2. type
+3. stat
+4. which
+5. whatis / man -f 
+6. apropos / man -k
+7. nl
+8. wc
+9. paste
+10. find
+11. locate 
+12. sleep
+13. seq 
+14. id
+15. groups - print the groups a user is in
+16. bc - calculator
+17. cal - calendar
+18. date - print or set the system date and time
+19. getent  - get entries from Name Service Switch libraries
+20. uptime - Tell how long the system has been running.
+21. lscpu - display information about the CPU architecture
+22. lspci - list all PCI devices
+23. lsusb - list USB devices
+24. lsblk - list block devices
+25. lshw - list hardware
+26. lslogins - display information about known users in the system
+27. lsmem - list the ranges of available memory with their online status
+28. lsmod - Show the status of modules in the Linux Kernel
+29. arch - machine architecture
+30. usb-devices - print USB device details
+31. modinfo - Show information about a Linux Kernel module
+32. modprobe - Add and remove modules from the Linux Kernel
+33. lsof -i - List open files 
+34. dd - convert and copy a file
+35. runlevel - Print previous and current SysV runlevel
+36. acpid - Advanced Configuration and Power Interface event daemon
+37. truncate - truncate a file to a specified length
+38. sudo -u <username> <shell(e.g. bash)> - switch user
+39. last - show a listing of last logged in users
+40. who - show who is logged on
+41. uname -a  - print system information
+42. wall  - write a message to all users
+43. write - send a message to another user
+44. mesg - display (or do not display) messages from other users
+45. tmux
+46. screen 
+47. cut - remove sections from each line of files
+48. join - join lines of two files on a common field
+49. tr - translate or delete characters
+50. sed - stream editor for filtering and transforming text
+51. split - split a file into pieces
+52. xargs - build and execute command lines from standard input
+52. exec - execute a file
+53. ldconfig - configure dynamic linker run-time bindings
+54. ldd - print shared object dependencies
+55. lpr - print files
+56. lpadmin - configure cups printers and classes
+57. hwclock - time clocks utility
+58. tzselect - view timezones
+59. iconv - convert text from one character encoding to another
+60. xhost - server access control program for X
+61. ulimit - get and set user limits
+62. strings - print the sequences of printable characters in files
+63. scp — OpenSSH secure file copy
+64. gpg - OpenPGP encryption and signing tool
+65. telinit - Change SysV runlevel
+66. a@comp:/proc$ cat cpuinfo 
+67. $ sudo nano /etc/defaults/grub - GRUB2 config
+    $ sudo update-grub
+68. ldd - print shared object dependencies
+    $ ldd app (app is executable)
+69. ldconfig - configure dynamic linker run-time bindings (LD_LIBRARY_PATH)
+70. chage - change user password expiry information
+71. sudo fuser 631/tcp
+
+    631/tcp:               867
+    
+    ps 867 
+
+    PID TTY      STAT   TIME COMMAND
+    867 ?        Ss     0:00 /usr/sbin/cupsd -l
+
+72. netstat
+73. nmap
+74. chattr - change file attributes on a Linux file system
+75. grep - print lines that match patterns
+($ grep -d skip "word to find" * # * means search among files in current dir, -d skip means ignore dirs )
+
+
+______________________________________________________
+1. file
+
+a@comp:~$ file py.py
+py.py: ASCII text
+______________________________________________________
+2. type
+
+a@comp:~$ type pwd
+pwd is a shell builtin
+_______________________________________________________
+3. stat
+
+a@comp:~$ stat py.py
+  File: py.py
+  Size: 28        	Blocks: 8          IO Block: 4096   regular file
+Device: 805h/2053d	Inode: 27009716    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/       a)   Gid: ( 1000/       a)
+Access: 2020-11-23 21:15:20.813498307 +0400
+Modify: 2020-09-15 19:01:18.000000000 +0400
+Change: 2020-10-01 15:18:11.087465737 +0400
+ Birth: -
+_______________________________________________________
+4. which
+
+a@comp:~$ which pwd
+/usr/bin/pwd
+_______________________________________________________
+5. whatis / man -f <pwd>
+
+a@comp:~$ whatis pwd
+pwd (1)              - print name of current/working directory
+_______________________________________________________
+6. apropos / man -k <pwd>
+
+a@comp:~$ apropos pwd
+lckpwdf (3)          - get shadow password file entry
+pwd (1)              - print name of current/working directory
+pwdx (1)             - report current working directory of a process
+ulckpwdf (3)         - get shadow password file entry
+unix_chkpwd (8)      - Helper binary that verifies the password of the current user
+_______________________________________________________
+7. nl
+
+a@comp:~$ nl py.py
+     1	import sys
+       
+     2	print(sys.argv)
+_______________________________________________________
+8. wc
+
+a@comp:~$ wc py.py
+ 3  3 28 py.py
+_______________________________________________________
+9. paste
+
+a@comp:~$ cat > capitals.txt
+moscow
+washington
+bogota
+minsk
+kiev
+a@comp:~$ cat > countries.txt
+russia
+usa
+columbia
+berlarus
+ukraine
+a@comp:~$ paste capitals.txt countries.txt 
+moscow	russia
+washington	usa
+bogota	columbia
+minsk	berlarus
+kiev	ukraine
+________________________________________________________
+10. find
+a@comp:~$ find . -name py.py
+./py.py
+________________________________________________________
+11. locate 
+a@comp:~$ locate py.py
+/home/a/py.py
+(if not found try updatedb then repeat locate)
+________________________________________________________
+12. sleep
+a@comp:~$ sleep 5 && pwd
+*wait 5 seconds*
+/home/a
+________________________________________________________
+13. seq 
+
+$ seq <start> <step> <end>
+a@comp:~$ seq  3 2 12
+3
+5
+7
+9
+11
+________________________________________________________
+14. id
+
+a@comp:~$ id
+uid=1000(a) gid=1000(a) groups=1000(a),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),131(lxd),132(sambashare),1001(SALES)
+________________________________________________________
+15. groups 
+
+a@comp:~$ groups
+a adm cdrom sudo dip plugdev lpadmin lxd sambashare SALES
+________________________________________________________
+16. bc - calculator
+________________________________________________________
+17. cal - calendar
+________________________________________________________
+18. date - current date
+________________________________________________________
+19. getent
+
+$ getent database [key ...]
+
+$ getent passwd user1
+
+$ getent group user1
+_________________________________________________________
+34. dd
+
+$ dd if=<from> of=<to>
+
+a@comp:~$ dd if=file.txt of=file3.txt 
+0+1 records in
+0+1 records out
+17 bytes copied, 0,000244301 s, 69,6 kB/s
+_________________________________________________________
+37. truncate
+
+(-s size, 0 zero bytes)
+$ truncate -s 0 file.log
+
+OR
+
+$ > file.log
+
+OR
+
+$ /dev/null > file.log
+_________________________________________________________
+47. cut 
+
+$ cut -d "-" -f 1,2
+
+Russia Moscow
+Hi There
+_________________________________________________________
+49. tr 
+
+$ tr “[a-z]” “[A-Z]”
+_________________________________________________________
+50. tr
+
+Replacing the 2 occurrence of a pattern in a line
+$ sed 's/a/A/2' file.txt
+
+Replacing all occurrence of a pattern in a line
+$ sed 's/a/A/g' file.txt
+_________________________________________________________
+51. xargs
+
+$ ls
+one.sh one.py two.sh two.py
+
+$ find . -name "*.sh"| xargs rm -rf
+
+$ ls
+one.py two.py
+________________________________________________________
+52. exec
+
+find . -exec cmd {} +
+________________________________________________________
+

@@ -1,0 +1,31 @@
+symbolic links (also known as “soft links” or “symlinks”): Refer to a symbolic path indicating the abstract location of another file.
+
+hard links : Refer to the specific location of physical data. Same INODE.
+
+
+Symbolic link.
+
+$ ln -s target_file1 link1
+
+then we call link1 it's redirect to target_file
+eg.
+$ bash
+bash -> /bin/sh
+bash is link, and /bin/sh is target
+
+
+Symlinks To a Directory.
+
+$ ln -s /mnt/my_drive/movies ~/my_movies
+
+Overwrite link.
+
+$ ln -sf file1 link1
+
+Removing Symlinks.
+
+rm
+
+OR
+
+unlink link1

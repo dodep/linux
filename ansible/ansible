@@ -1,0 +1,26 @@
+$ ls /etc/ansible
+
+ansible.cfg  hosts  ping.yml
+
+hosts (where? hosts addr)
+ping.yaml (what? what to do on hosts)
+_______________________________
+
+1. Simple ping to VPS (from cli).
+
+$ ansible client01 -m ping # client01 defined in /etc/ansible/hosts. -m means module. ping name of the module.
+OR
+call group of hosts:
+$ ansible group1 -m ping # client01 defined in /etc/ansible/hosts. -m means module. ping name of the module.
+OR
+call group of hosts defined in different file:
+$ ansible -i /etc/ansible/hosts2 group01 -m ping
+______________________________
+
+2. Simple ping to VPS (from playbook).
+
+$ ansible-playbook /etc/ansible/ping.yml
+______________________________
+
+ANSIBLE MODULES: 
+https://docs.ansible.com/ansible/2.8/modules/list_of_all_modules.html

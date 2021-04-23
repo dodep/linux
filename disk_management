@@ -1,0 +1,161 @@
+##################DISK MANAGEMENT####################
+$ fdisk (for mbr, less then 2TB)
+
+$ gdisk (GPT)
+$ parted (GPT)
+
+also
+
+$ cfdisk
+$ cgdisk
+$ sgdisk
+
+View all Disk Partitions.
+
+$ sudo fdisk -l
+_______________________________________
+View Specific Disk Partition.
+
+$ sudo fdisk -l /dev/sdb
+_______________________________________
+Unmount.
+
+$ sudo umount /dev/sdb 
+
+$ sudo umount DIRECTORY
+OR
+$ sudo umount DEVICE_NAME
+_______________________________________
+Delete partition.
+
+$ sudo fdisk /dev/sdb
+$ d
+$ w
+_______________________________________
+Create new partition.
+
+$ sudo fdisk /dev/sdb
+$ n
+$ w
+_______________________________________
+Make filesystem.
+
+$ mkfs.fat /dev/sdb1
+OR
+$ mkfs.ext4 /dev/sdb1
+_______________________________________
+Determining the filesystem types.
+
+sudo file -sL /dev/sdb1
+_______________________________________
+Disk space usage (ONLY MOUNTED).
+
+$ df -h ~/FLASH
+_______________________________________
+Disk Usage of Files and Directories.
+
+$ du -sh /home/a
+_______________________________________
+Size usage and Relationship between disks and their partitions (MOUNTED and UNMOUNTED).
+
+$ lsblk
+_______________________________________
+RAM usage.
+
+$ free -h
+_______________________________________
+Monitoring disk performance.
+
+$ iostat
+_______________________________________
+Disk info.
+
+$ sudo smartctl /dev/sdb1 -x
+_______________________________________
+Check/Repair File System.
+
+$ fsck /dev/sdb1
+_______________________________________
+Mount.
+
+$ mount /dev/sdb1 ~/FLASH
+_______________________________________
+Find File System UUID.
+
+$ sudo blkid /dev/sdb1
+
+/dev/sdb1: UUID="BD38-A434" TYPE="vfat" PARTUUID="6132549e-01"
+
+OR 
+
+List all UUID
+
+$ cd /dev/disk/by-id && ls 
+______________________________________________________________
+/etc/fstab
+
+UUID=BD38-A434 /home/a/FLASH vfat auto,sync,rw,(noatime) 0 0
+________________________________________
+List the partition table of disk.
+
+$ sudo partx --show /dev/sda
+
+NR   START       END   SECTORS   SIZE NAME UUID
+ 1    2048   1050623   1048576   512M      a6e610c6-01
+ 2 1052670 976771071 975718402 465,3G      a6e610c6-02
+ 5 1052672 976771071 975718400 465,3G      a6e610c6-05
+________________________________________
+Labels.
+
+1. e2label or tune2fs
+The commands e2label or tune2fs used for changing label of ext2, ext3 and ext4 type partitions.
+
+$ e2label /dev/sda1 ROOT
+OR
+$ tune2fs –L ROOT_PART /dev/sda1
+
+2. ntfslabel
+The ntfslabel command used for changing label of NTFS partitions.
+
+$ ntfslabel /dev/sda5 NTFS_DIR
+
+3. reiserfstune
+The reiserfstune command used for labeling reiserFS formatted partitions.
+Note: It is advisable to first unmount the filesystem before this command.
+
+$ reiserfstune –l HOME_PART /dev/sdb1
+
+4. mkswap
+The mkswap command used for changing label of SWAP partition.
+After unmounting the filesystem, following command needs to be executed to change the label of swap partition.
+
+$ mkswap -L SWAP_PART /dev/sda5
+
+5. exfatlabel
+The exfatlabel command used for changing the label of exFAT formatted partition.
+
+$ exfatlabel /dev/sda3 EX_PART
+__________________________________________________
+If you are using hot swappable hard disk and created a new partition using the fdisk, then you need to reboot Linux based system to get partition recognized. 
+
+After the fdisk command session.
+
+$ partprobe
+
+Partprobe is a program that informs the operating system kernel of partition table changes, by requesting that the operating system re-read the partition table.
+__________________________________________________
+Dump ext2/ext3/ext4 filesystem information.
+
+$ umount /dev/sdb1
+$ sudo dumpe2fs -h /dev/sdb1
+__________________________________________________
+SWAP.
+
+$ mkswap /dev/sda6
+$ swapon -a
+also
+$ swapoff -a
+__________________________________________________
+Backup MBR.
+
+$ dd if=/dev/sda1 of=/home/a/backup.mbr bs=512 count=1

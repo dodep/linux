@@ -1,0 +1,70 @@
+###########################GROUP############################
+/etc/passwd
+/etc/group
+/etc/gshadow
+/etc/shadow
+$ id
+$ groups 
+__________________________________________
+1. Create group.
+
+$ groupadd <name_of_the_group>
+
+e.g. 
+
+$ groupadd SALES
+__________________________________________
+2. Modify group (e.g. change id).
+
+$ groupmod -g 1010 SALES
+__________________________________________
+3. Delete group.
+
+$ groupdel SALES
+__________________________________________
+4. Switch user's current group.
+
+$ newgrp SALES
+
+before: 
+$ id
+uid=1000(a) gid=1000(a) groups=1000(a),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),131(lxd),132(sambashare),1001(SALES)
+
+after:
+$ id
+uid=1000(a) gid=1001(SALES) groups=1001(SALES),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),131(lxd),132(sambashare),1000(a)
+
+! IF newgrp require password. First add user to group, then run newgrp. !
+
+############################USER############################
+
+1. Create user.
+
+simple:
+$ useradd user_01
+
+with options:
+$ useradd -m -s /bin/bash -g SALES user_01
+
+-m create user's home directory (/home/sales_user_01)
+-s shell
+-g group
+_____________________________________________
+2. Create/ change user password.
+
+$ passwd user_01
+_____________________________________________
+3. Delete user.
+
+$ userdel user_01
+_____________________________________________
+4. Modify user.
+
+Add user (user_01) to group (sudo).
+$ usermod -aG sudo user_01
+_____________________________________________
+
+5. Switch user.
+
+$ sudo -u user_01 bash
+

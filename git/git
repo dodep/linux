@@ -1,0 +1,133 @@
+GitHub Action eg. 
+https://github.com/dodep/asdg/blob/main/.github/workflows/main.yml
+________________________________
+1. apt git install
+2. git configure --global user.name "<name>" user.email "<mail@mail.ru>"
+3. git init
+4. git add *
+5. git commit -m "<init commit>"
+6. git remote add <remote_server_name> <repo_addr> #remote server name is up to you.
+eg.
+git remote add origin git@github.com:dodep/python-server.git
+7. git push -u <remote_server_name> <branch_name> # -u means pull this branch for future pull.
+eg.
+git push -u origin master
+
+
+________________________________
+1. Configure git.
+(Global config ~/.gitconfig)
+
+$ git config --global user.name "andrew"
+$ git config --global user.email "git_public@mail.ru"
+
+show config 
+$ git config -l
+________________________________
+2. Start git.
+(Creates git db)
+
+$ git init #inside working dir
+OR
+$ git init /home/user/dev/python_project01
+________________________________
+3. Get status of current project.
+
+$ git status #inside working dir
+________________________________
+4. Logs.
+
+$ git log
+Logs with details:
+$ git log -p
+Logs with details of the last commit:
+$ git log -p -1
+________________________________
+5. Undo unstaged(before add *) changes.
+
+$ git restore <file>
+________________________________
+6. Get code from GitHub.
+( Get a working copy of the remote repository.)
+
+$ git clone git@github.com:dodep/python-server.git
+________________________________
+7. Update local code.
+(Get the new changes that may be updated by others.)
+
+$ git pull <repo_addr>
+eg.
+$ git pull git@github.com:dodep/python-server.git
+________________________________
+8. Show all remote servers.
+
+$ git remote -v
+________________________________
+9. Show all branches.
+
+$ git branch
+________________________________
+10. Add remote server.
+
+$ git remote add <remote_server_name> <server_addr> #remote server name is up to you.
+eg.
+$ git remote add origin git@github.com:dodep/python-server.git
+________________________________
+11. Send code to server.
+
+$ git push -u <remote_server_name> <branch_name> # -u means pull this branch for future pull.
+eg.
+$ git push -u origin master
+_______________________________
+12. Rename branch.
+
+$ git branch -M <new_branch_name>
+eg.
+$ git branch -M dev2
+_______________________________
+13. Create new branch.
+
+$ git branch <new_branch_name>
+eg.
+$ git branch dev2_branch
+_______________________________
+14. Switch branches.
+
+$ git switch <branch_name>
+(check current branch: $ git branch)
+______________________________
+15. Delete branch.
+(Must be in a different branch)
+$ git branch -d <branch_name>
+eg.
+$ git branch -d dev2_branch
+_____________________________
+16. Delete remote branch.
+
+$ git push <remote_server_name> --delete <branch_to_delete>
+eg.
+$ git push origin --delete dev2_branch
+____________________________
+17. Merge branch to master.
+(Before merge branch mush be commited)
+
+$ git merge <branch_name>
+eg.
+$ git merge dev2_branch
+___________________________
+18. Go back to previous commits(temporarily).
+
+18.1 see all commits:
+$ git log
+18.2 git checkout <commit_id>
+eg. 
+git checkout bce8dc37c279faa1ebbb4203d39d0e7f1c18bac6
+
+Go back to latest master branch commit:
+$ git checkout master
+___________________________
+19. Go back to previous commits(permanently).
+
+$ git reset --hard HEAD~2 #delete 2 previous commits
+___________________________
+

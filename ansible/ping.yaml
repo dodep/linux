@@ -1,0 +1,16 @@
+- name: Ping Servers
+  hosts: all 		#what hosts to use
+  become: yes 		#become root
+
+  tasks:
+  - name: Task ping
+    ping:		#module to use
+
+  - name: Update cache
+    apt:		#module to use
+     update_cache: yes	#module parameter to use
+     
+  - name: Install apache2
+    apt:		#module to use
+     pkg: apache2 	#module parameter to use
+     state: present 	#module parameter to use

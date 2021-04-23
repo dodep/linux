@@ -1,0 +1,227 @@
+Docker is virtual application environments.
+_______________________________
+1. Get info(man).
+
+$ docker --help
+eg.
+$ docker ps --help
+_______________________________
+
+2. Run image.
+
+$ docker run <image_name> 
+eg.
+$ docker run apache2
+_______________________________
+
+3. List all images on host.
+
+$ docker images
+_______________________________
+
+4. List containers.
+
+$ docker ps
+_______________________________
+
+5. Search in DockerHub.
+
+$ docker search <image_name>
+eg.
+$ docker search httpd
+______________________________
+
+6. Download image from DockerHub.
+
+$ docker pull <image_name>
+eg.
+$ docker pull httpd
+______________________________
+
+7. Run image with params.
+
+WITH ENVIROMENT VARIABLES:
+
+$ docker run -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password -p 27017:27017 -d --net mongo-network mongo
+             __________________________________________________________________________
+
+WITH NETWORK:
+
+$ docker run -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password -p 27017:27017 -d --net mongo-network mongo
+             												      ___________________
+
+PORT FORWARDING:
+
+$ docker run -p <host_port>:<docker_container_port> <image_name>
+eg.
+$ docker run -p 1234:80 httpd # Apache2 works on host localhost:1234.
+
+INTERACTIVE:
+
+$ docker run -it ubuntu #Docker ubuntu shell starts.
+
+a@comp:~$ docker run -it ubuntu
+root@9af33031711b:/# 
+
+AS A DEAMON:
+
+$ docker run -d -p 1234:80 httpd #Docker container run as a deamon on 1234 port on host machine.
+
+WITH GIVEN NAME
+
+$ docker run --name name_for_container:some_tag ubuntu 
+
+WITH VOLUME(make data persistent)
+
+$ docker run -v <host_FS>:<container_FS>
+eg.
+
+$ docker run -v /home/data:/var/lib/mysql/data
+OR
+$ docker run -v /var/lib/mysql/data #ANONYMOUS VOLUME Only container FS path. On Host saved into /var/lib/docker/volumes/...
+OR
+$ docker run -v my_db:/var/lib/mysql/data #NAMED VOLUME. On Host saved into /var/lib/docker/volumes/my_db
+
+_____________________________
+
+8. Remove container.
+
+first find container to remove:
+$ docker ps -a
+
+remove:
+$ docker rm <CONTAINER ID>
+eg.
+$ docker rm a5e0e7ae4f4c
+_____________________________
+
+9. Remove image.
+
+first find image to remove:
+$ docker images 
+
+remove:
+$ docker rmi <IMAGE_ID>
+eg.
+$ docker rmi bf756fb1ae65
+____________________________
+
+10. Get into container.
+
+$ docker exec -it <CONTAINER_ID> /bin/bash
+
+make some changes, after save changed container as a new image:
+
+$ docker commit <CONTAINER_ID> <image_name:image_tag>
+eg.
+$ docker commit 0db078d6201a httpd:version2
+____________________________
+
+11. Remove all containers and Remove all images.
+
+ALL CONTAINERS:
+$ docker rm -f $(docker container ls -a)
+
+ALL IMAGES:
+$ docker rmi -f $(docker images)
+____________________________
+
+12. Stop container.
+
+$ docker stop <CONTAINER_ID>
+eg.
+$ docker stop ea80133ca2e6
+____________________________
+
+13. Start stopped container.
+
+$ docker start <CONTAINER_ID>
+eg.
+$ docker start ea80133ca2e6
+____________________________
+
+14. Docker compose.
+(Creates docker container from config file.)
+
+START container:
+$ docker-compose -f <config_file_name>.yaml up
+eg.
+$ docker-compose -f httpd.yaml up
+
+STOP container:
+$ docker-compose -f <config_file_name>.yaml down
+eg.
+$ docker-compose -f httpd.yaml down
+____________________________
+
+15. Dockerfile.
+(Creates docker image from config file.)
+
+$ docker build -t <image_name>:<image_tag> <path_to_dir_with_Dockerfile>
+eg.
+$ docker build -t hello_world:v1 . # . is path to current dir with Dockerfile.
+____________________________
+
+16. Login to DockerHub.
+
+$ docker login
+____________________________
+
+17. Push to DockerHub.
+
+first, login:
+$ docker login
+
+second, rename image:
+$ docker tag <image_name>:<image_tag> <DockerHub_username>/<image_name>:<image_tag>
+eg.
+$ docker tag ubuntu:v1 dockerhub_username/ubuntu:v1
+
+third, push.
+$ docker push <DockerHub_username>/<image_name>:<image_tag>
+eg.
+$ docker push dockerhub_username/ubuntu:v1
+_____________________________
+18. Logs.
+
+$ docker logs <container_name>
+_____________________________
+19. Create network.
+
+$ docker network create <network_name>
+_____________________________
+20. List networks.
+
+$ docker network ls
+_____________________________
+21. Volumes.
+
+on linux:
+/var/lib/docker/volumes
+_____________________________
+22. Image info.
+
+$ docker image inspect <image_name_OR_image_id> 
+eg.
+$ docker image inspect nginx:1.19-alpine 
+_____________________________
+23. Copy from container to host.
+
+$ docker cp <container_id>:<path_inside_container> <path_on_host>
+eg.
+$ docker cp 7b4c8847f161ce85b120d8fc31bc806799ffa9f1092296adaf39b3464658a1c2:app/server/ ~/development/docker/004
+_____________________________
+24. Get image data.
+
+24.1 get image data path: 
+docker image inspect <image_name_OR_image_id> 
+eg.
+$ docker image inspect nginx:1.19-alpine 
+
+then search for "data" key in json. 
+
+24.2 cd to first value from "data"
+
+$  cd /var/lib/docker/overlay2/895dbd69e1e5a3711f65379ea6e0f8d8a2ca25605677d6c323bba5e0f492f5bd/diff
+___________________________
+

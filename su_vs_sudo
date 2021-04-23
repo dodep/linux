@@ -1,0 +1,13 @@
+sudo -u <username> <command> #run command as another user
+eg. 
+sudo postgres psql 
+______________________________
+sudo -u <username> -s #run shell as another user
+eg.
+sudo -u jenkins -s
+jenkins@comp:~$ $HOME
+bash: /var/lib/jenkins: Is a directory
+______________________________
+
+Become root by typing a current user password(not a root password)
+$ sudo su - # - means switch env.

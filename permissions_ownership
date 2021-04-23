@@ -1,0 +1,58 @@
+#######################OWNERSHIP#######################
+Change ownership.
+
+$ chown user:group file
+
+change only group of file
+$ chown :group file
+OR
+$chgrp group file
+
+######################PERMISSIONS#######################
+u - user
+g - group
+o - others
+
+4 - r - read
+2 - w - write
+1 - x - execute
+
+Special permissions:
+
+4 - s - SUID on file, execute binary file as a owner of file. (Doesn't work with .sh)
+2 - s - SGID on directory, every file created inside this directory have group of directory's group. 
+1 - t - sticky bit. File can be deleted only by owner. 
+
+SGID e.g.
+
+/home/a (drwxr-srwx 23 a a 4096 ноя 24 18:57 /home/a)
+      \
+      	new.txt (-rw-rw-r-- 1 user02 a 0 ноя 24 19:32 new.txt) made by user02, but group is a(of the parent directory)
+
+
+user02@comp:/home/a$ touch new.txt
+user02@comp:/home/a$ ls -l new.txt 
+-rw-rw-r-- 1 user02 a 0 ноя 24 19:32 new.txt
+______________________________________________________________________________
+1. Change permissions.
+
+$ chmod 7777 file
+OR 
+$ chmod ugo+rwxt file
+
+first char is special permission
+second char is owner
+third char is group
+forth char is others
+_______________________________________________________________________________
+
+Default permission on file is 666.
+
+Default permission on directory is 777.
+
+Default umask is 022.
+
+So, newly created file would have 666-022=644 permission
+So, newly created directory would have 777-022=755 permission
+_______________________________________________________________________________
+

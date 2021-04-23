@@ -1,0 +1,10 @@
+inside setting.py add:
+
+# SMTP
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "django_smtp@mail.ru"
+EMAIL_HOST_PASSWORD = "probapochti"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER 

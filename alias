@@ -1,0 +1,28 @@
+######################ALIAS####################
+List Currently Defined Aliases in Linux
+
+$ alias
+
+Creating Temporary Aliases
+
+$ alias wr='cd /var/www/html'
+
+Creating Permanent Aliases
+
+To keep aliases between sessions, you can save them in your user’s shell configuration profile file. This can be:
+
+Bash – ~/.bashrc
+ZSH – ~/.zshrc
+Fish – ~/.config/fish/config.fish
+
+sudo nano ~/.bashrc 
+
+Inside .bashrc file.
+
+#My custom alias
+alias wr='cd /var/www/html'
+
+To remove an alias added via the command line.
+
+$ unalias alias_name
+$ unalias -a [remove all alias]

@@ -1,0 +1,35 @@
+Network Management
+
+/bin/netstat    (replaced by ss, for which I'll dedicate another blog post entirely)
+/sbin/ifconfig
+/sbin/ipmaddr   (replaced by ip maddress)
+/sbin/iptunnel
+/sbin/mii-tool    (ethtool should appropriately replace it)
+/sbin/nameif
+/sbin/plipconfig
+/sbin/rarp
+/sbin/route
+/sbin/slattach
+
+$ arp
+$ ip
+$ ping
+$ ss
+$ dig
+$ host
+$ ssh
+$ nc
+$ nmap
+$ ufw
+$ tcpdump
+$ nmcli
+$ resolvectl
+$ telnet — user interface to the TELNET protocol
+
+$ sudo ifconfig enp4s0 down
+$ sudo ifconfig enp4s0 up
+
+localhost ipv6 
+::1
+
+

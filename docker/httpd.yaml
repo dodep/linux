@@ -1,0 +1,13 @@
+version: '3'
+services:
+ httpd_:
+  image: httpd
+  ports:
+   - 8080:80
+  enviroment:
+   - MY_DOCKER_VAR=hello
+  volumes:
+   - my_db:/path/to/db/data/of/specific/database
+volumes:
+  my-db:
+    driver: local

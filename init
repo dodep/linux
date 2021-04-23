@@ -1,0 +1,25 @@
+SysV
+
+$ cd /etc/init.d/
+acpid                bluetooth         irqbalance         pppd-dns                     sysstat
+alsa-utils           console-setup.sh  kerneloops         procps                       udev
+anacron              cron              keyboard-setup.sh  pulseaudio-enable-autospawn  ufw
+apache2              cups              kmod               rsync                        unattende
+apache-htcacheclean  cups-browsed      network-manager    rsyslog                      uuidd
+apparmor             dbus              openvpn            saned                        whoopsie
+apport               gdm3              plymouth           smartmontools                x11-commo
+avahi-daemon         grub-common       plymouth-log       speech-dispatcher
+binfmt-support       hwclock.sh        postgresql         spice-vdagent
+$ ./apache2 stop
+Stopping apache2 (via systemctl): apache2.service.
+
+$ service apache2 stop
+_______________________________________________________
+
+Systemd
+
+$ systemctl list-units
+
+$ systemctl list-units --type=service
+
+

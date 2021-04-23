@@ -1,0 +1,49 @@
+after gunicorn is ready:
+1) install supervisor globally(NOT inside VIRTUAL ENVIROMENT): 
+
+sudo apt-get install supervisor
+
+2) create config file for supervisor:
+
+cd /etc/supervisor/conf.d
+sudo touch sv.conf
+sudo nano sv.conf
+
+nano:
+
+[program:online_art_shop] #this name will be displayed as a process name
+
+# IMPORTANT: command point to gunicorn inside VIRTUAL ENVIROMENT
+command=/home/art_shop/backend/venv/bin/gunicorn ecom_project.wsgi:application -c gunicorn_config.py
+
+# root directory of Django project
+directory=/home/art_shop/backend/drf-ecommerce
+
+autostart=true
+autorestart=true
+startsecs=10
+startretries=3
+exitcodes=0,2
+stopwaitsecs=10
+
+# files with logs
+stdout_logfile=/home/art_shop/supervisor/log
+stderr_logfile=/home/art_shop/supervisor/err
+
+3) restart supervisor: 
+
+sudo service supervisor restart
+
+4) check supervisor status:
+
+sudo supervisorctl status
+
+5) restart supervisor:
+
+sudo supervisorctl restart <program_name>
+
+#e.g. accordind to step 2) 
+
+#sudo supervisorctl restart online_art_shop
+
+

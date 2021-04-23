@@ -1,0 +1,62 @@
+##############ARCHIVE################
+
+tar
+
+c – Create an archive from a file or directory
+x – Extract archive
+r – Append file to archive
+t - List the contents of the archive
+
+
+Create tar file of directory.
+$ tar -cf archive.tar some_dir/
+
+Create tar file of multiple files.
+
+$ tar -cf archive.tar file1.txt file2.txt
+
+Extract.
+
+$ tar -xf archive.tar 
+
+Extract to specific folder.
+
+$ tar -xf archive.tar -C /home/a/Downloads/
+
+Extract a particular type of file.
+
+$ tar -xf archive.tar --wildcards "*.png"
+
+Append files to existing archives.
+
+$ tar -rf archive.tar file.txt
+
+List files in archive.
+
+$ tar -tvf archive.tar 
+
+
+*$ cpio*
+#################COMPRESS######################
+
+Compress file.
+
+$ gzip archive.tar
+
+*Creates file archive.tar.gz*
+
+OR
+
+$ zip myfiles.zip file1 file2
+
+$ unzip myfile.zip
+
+################ARCHIVE AND COMPRESS##############
+
+Create compressed archive.
+
+$ tar -czf archive.tgz file1.txt file2.txt
+ 
+Extract compressed archive.
+
+$ tar -xzf archive.tgz

@@ -1,0 +1,18 @@
+#############VARIABLES#######################
+an environment variable can be in three types:
+
+1. Local Environment Variable
+One defined for the current session. These environment variables last only till the current session, be it remote login session, or local terminal session. These variables are not specified in any configuration files and are created, and removed by using a special set of commands.
+
+2. User Environment Variable
+These are the variables which are defined for a particular user and are loaded every time a user logs in using a local terminal session or that user is logged in using remote login session. These variables are typically set in and loaded from following configuration files: .bashrc, .bash_profile, .bash_login, .profile files which are present in user’s home directory.
+
+3. System wide Environment Variables
+These are the environment variables which are available system-wide, i.e. for all the users present on that system. These variables are present in system-wide configuration files present in following directories and files: /etc/environment, /etc/profile, /etc/profile.d/, /etc/bash.bashrc. These variables are loaded every time system is powered on and logged in either locally or remotely by any user.
+
+
+$ my_var='1223'
+
+Show all variables
+$ env
+$ printenv

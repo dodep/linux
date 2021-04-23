@@ -1,0 +1,52 @@
+ci/cd
+
+ci:				     	            | cd:
+code --> repository --> build(compile) = artefact --> deploy to server
+
+1. Developer push code to repository(GitHub)
+2. GitHub(Webhook) call Jenkins
+3. Jenkins pull code from GitHub repository and do some job defined in BUILD section.
+
+_____________________________
+0. Configure jenkins master host (visudo)
+(Let jenkins user execute commands with sudo)
+
+-0.1 Add jenkins user to sudo group:
+$ sudo usermod -aG sudo jenkins
+check groups user jenkins belongs to:
+$ groups jenkins
+OR
+$ id jenkins
+
+-0.2 Edit /etc/sudoers
+jenkins ALL=(ALL) NOPASSWD : ALL #means jenkins user can use sudo command without typing password
+_____________________________
+1. Create GitHub repository
+_____________________________
+2. Inside repository settings configure Webhooks.
+
+Payload URL: http://<jenkins_master_host_ip_addr>:8080/github-webhook/
+eg.
+Payload URL: http://194.67.86.229:8080/github-webhook/
+
+Content type: application/json
+_____________________________
+3. Create job in jenkins.
+
+(if needed install plugings in jenkins,
+something like git, github, ssh ...)
+
+!check! GitHub project	
+ 	Project url	https://github.com/dodep/jenkins.git/
+
+!check! Source Code Management Git
+	Repository URL	https://github.com/dodep/vue-nginx-docker.git
+	branch: */master
+	
+!check! GitHub hook trigger for GITScm polling
+
+BUILD:
+	(jeckins clone code from github in current working directory)
+	eg.
+	sudo mv index.html /var/www/html/index.html
+	sudo systemctl reload apache2

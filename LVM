@@ -1,0 +1,37 @@
+############LVM##############
+
+1. Connect physical devices(HDD, SSD, NVMe, USB Flash Drive) to the system.
+
+e.g. /dev/sdb, /dev/sdc, /dev/sdd
+___________________________________________
+2. Use pvcreate to convert the desired devices (!OR ONLY PARTITION OF DEVICE!) into physical volumes, which will allocate them for inclusion in the LVM scheme. This will write a header to the physical device and make them visible to the LVM process.
+
+$ pvcreate /dev/sdb
+$ pvcreate /dev/sdc
+$ pvcreate /dev/sdd
+
+OR 
+
+$ pvcreate /dev/sdb1
+$ pvcreate /dev/sdc1
+$ pvcreate /dev/sdd2
+___________________________________________
+3. Use vgcreate to incorporate all of the desired physical volumes into a virtual collection called a volume group. The volume group now will act as a multi-disk equivalent of a physical volume on which partitioning can occur.
+
+$ vgcreate vol1 /dev/sdb /dev/sdc /dev/sdd
+OR
+$ vgcreate vol1 /dev/sdb1 /dev/sdc1 /dev/sdd2
+___________________________________________
+4. Use lvcreate to create the LVM version of disk partitions (called logical volumes) in the volume group created previously. The logical volumes act like partitions in that the user can create filesystems on them, mount them, and in general use them as a traditional partition.
+
+$  lvcreate -L 200M -n logical_vol1 vol1
+
+Would result in a new device name of /dev/vol1/logical_vol1 that could be used just like a traditional partition.
+___________________________________________
+
+Additionally, if another physical volume was added to the system add a new hard drive, use the pvcreate command, and then a command called vgextend, then this new space could be used to create more logical volumes or add to the size of existing logical volumes.
+___________________________________________
+
+5. Resize.
+
+$ lvresize -L 4G vol1/logical_vol1

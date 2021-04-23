@@ -1,0 +1,10 @@
+terminal = tty = text input/output environment
+console = physical terminal
+shell = command line interpreter
+
+Terminal: the text interface to the shell program, can't do anything on its own apart from giving input to the shell and displaying output from shell
+Shell: a program that processes commands and returns an output
+ i.e. terminal runs a shell
+Bash is a type of shell program (or shell language). Bash and shell aren't synonymous 
+ Command line is just a style of user interface that requires users to type in commands to get the computer to do stuff as opposed to e.g. a graphical user interface where the user clicks.
+ A console is supposed to be the physical monitor and keyboard setup that is running a terminal that the user types commands into but in essence it is just a terminal

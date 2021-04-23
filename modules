@@ -1,0 +1,34 @@
+1. List all modules.
+
+$ lsmod
+OR
+$ cat /proc/modules
+______________________
+2. Info of specific module.
+
+$ modinfo <module_name>
+eg. 
+$ modinfo aufs
+______________________
+3. depmod - Generate modules.dep and map files.
+
+Inside /lib/modules/<kernel_version>/
+eg.
+/lib/modules/5.8.0-44-generic
+(uname -a #to show running kernel version)
+
+there is a file modules.dep, if no run command depmod before additing new module. 
+______________________
+(don't use it. because it doesn't consider dependencies)
+4.  insmod - Simple program to insert a module into the Linux Kernel
+
+$ insmod [filename]
+______________________
+(Use this one)
+5. modprobe - Add and remove modules from the Linux Kernel
+
+$ modprobe <module_name>
+eg.
+$ modprobe /lib/modules/5.8.0-44-generic/kernel/drivers/pci/pci-pf-stub.ko
+______________________
+6. 

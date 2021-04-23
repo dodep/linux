@@ -1,0 +1,13 @@
+https://gist.github.com/bradtraversy/c831baaad44343cc945e76c2e30927b3
+
+0. Install Mysql.
+_______________
+1. Get into shell.
+
+$ sudo mysql -u root -p <password>
+_______________
+2. Create user.
+
+mysql> CREATE USER 'andrew'@'localhost' IDENTITIED BY '1234';
+_______________
+3. 

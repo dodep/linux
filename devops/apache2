@@ -1,0 +1,131 @@
+1. Install.
+
+# apt install -y apache2
+(for debian/ubuntu it calls apache2
+for others distros like RedHat, Fedora, Mint, Suse it calls httpd)
+___________________________________________
+2. Check status.
+
+# systemctl status apache2
+___________________________________________
+3. Default layout of files and directories.
+
+https://cwiki.apache.org/confluence/display/HTTPD/DistrosDefaultLayout
+
+Ubuntu:
+
+conf
+/etc/apache2/
+
+content
+/var/www/
+
+logs
+/var/log/apache2/
+___________________________________________
+
+<VirtualHost *:80>
+ ServerName my_site.com
+ ServerAlias www.my_site.com
+ DocumentRoot /var/www/my_site
+</VirtualHost>
+
+Specifying ServerName derictive allow host multiple domains on one ip addr (one VPS for many sites).
+Only directive is needed inside VirtualHost block is DocumentRoot.
+___________________________________________
+4. Enable/disable site/config/module.
+
+for sites:
+a2ensite <site>
+a2dissite <site>
+systemctl reload apache2
+
+for configs:
+a2enconf <conf>
+a2disconf <conf>
+
+for mods:
+a2enmod <mod>
+a2dismod <mod>
+
+4.1 Create config file inside "/etc/apache2/sites-available/" with .conf extension.
+eg.
+/etc/apache2/sites-available/my_site.conf
+
+4.2 Create symlink inside "/etc/apache2/sites-enabled/"
+eg.
+# ln -s /etc/apache2/sites-available/my_site.conf my_site.conf
+# ls -la
+lrwxrwxrwx 1 root root   26 мар 14 17:02 my_site.conf -> ../sites-available/my_site.conf
+___________________________________________
+5. Check config.
+
+# apache2 -t
+___________________________________________
+6. List all modules.
+
+# apache2ctl -M
+
+OR
+
+# ls -la /etc/apache2/mods-available/
+___________________________________________
+7. Enable module.
+
+# a2enmod <mod_name>
+eg.
+# a2enmod rewrite
+then
+# systemctl restart apache2
+
+OR
+
+Create symlink
+eg.
+# ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
+___________________________________________
+8. Rewrite URI. Lets use /about, and not only /about.html
+
+8.1 Inside main config. Change AllowOverride from None to All.
+
+# nano /etc/apace2/apache2.conf
+
+
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+ 
+8.2 Inside root dir of site. eg /var/www/html create .htaccess file
+
+# nano /var/www/html/.htaccess
+
+then place following code inside .htaccess:
+ 
+RewriteEngine on
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^ %{REQUEST_URI}.html [NC,L]
+
+8.3 Make sure module mod_rewrite enabled(see 6 and 7).
+8.4 reload apache2 server
+# systemctl restart apache2 
+__________________________________________
+9. Redirect 404.
+
+Edit .htaccess file
+eg.
+# nano /var/www/html/.htaccess
+place following code inside .htaccess:
+
+DirectoryIndex index.html  
+ErrorDocument 404 http://example.com/
+_________________________________________
+10. SSL/TSL For encrypted connection HTTPS use Certbot by Let's Encrypt.
+
+https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-18-04.
+_________________________________________
+11. 

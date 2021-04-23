@@ -1,0 +1,51 @@
+minikube - to <start|stop|delete> cluster
+kubectl  - to configure cluster
+
+
+
+1. Install minikube.
+
+$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+$ sudo dpkg -i minikube_latest_amd64.deb
+____________________________
+2. Set driver.
+
+$ minikube config set driver docker
+
+OR 
+
+$ minikube start --driver=docker
+____________________________
+3. Start cluster.
+
+$ minikube start
+____________________________
+4. Check cluster status:
+
+$ minikube status
+____________________________
+5. Help.
+
+$ minikube --help
+
+OR
+
+$ minikube <command> --help
+eg.
+$ minikube logs --help
+____________________________
+6. Start LoadBalancer type service in minikube.
+
+$ minikube service <service_name> #service_name: $ kubectl get service
+eg.
+$ minikube service mongo-express-service 
+__________________________
+7. Enadle ingress.
+
+$ minikube addons enable ingress
+__________________________
+8. Minikube IP
+
+$ minikube ip
+__________________________
+9. 

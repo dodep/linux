@@ -1,0 +1,52 @@
+1. Create keys.(on local host)
+
+comp@a:~/.ssh$ ssh-keygen -t rsa -f ~/.ssh/VPS1
+
+* passphrase: voda *
+__________________________________
+2. Create directory ~/.ssh on vps.
+
+$ mkdir .ssh
+_________________________________
+3. Copy public key(from local host) to vps.
+
+$ scp ~/.ssh/VPS1.pub root@194.67.86.229:/root/.ssh
+_________________________________
+4. On vps inside .ssh
+
+$ cat VPS1.pub > authorized_keys
+_________________________________
+5. Create alias (on local machine).
+
+$ sudo nano ~/.bashrc
+
+alias vps='ssh -i /home/a/.ssh/VPS1 root@194.67.86.229'
+_________________________________
+6. Disable SSH Password Authentication.
+
+On vps edit /etc/ssh/sshd_config
+
+PasswordAuthentication no
+PubkeyAuthentication yes
+
+$ systemctl reload ssh
+_________________________________
+UFW
+
+1. Allow ssh connection on port 22. 
+
+$ ufw allow ssh
+_______________
+2. Make sure rule is applied.
+
+$ ufw show added
+_______________
+3. Enable firefall.
+
+$ ufw enable
+_______________
+4. Check status.
+
+$ ufw status
+_______________
+

@@ -1,0 +1,37 @@
+$ at 
+
+#################CRON#####################
+
+/var/spool/cron/crontabs/a
+________________
+min(0-59) hour(0-23) day of month(1-31)  month(1-12)	day of week(0-6, SUNDAY=0)
+
+e.g.
+
+(every MONDAY at 12:00)
+* 12 * * 1  /home/a/scripts/monday.sh
+
+(every 2 minutes)
+*/2 * * * *  /home/a/scripts/2min.sh
+
+(every 6am and 6pm)
+* 6,18 * * * echo "hello 6" >> six.log
+_________________
+View user cron jobs.
+
+$ crontab -l
+_________________
+User crontab.
+
+$ crontab -e
+_________________
+Root crontab.
+
+$ sudo crontab -e
+_________________
+System crontab.
+
+$ nano /etc/crontab
+_________________
+
+

@@ -1,0 +1,219 @@
+----------------------------------------------------------------------------
+
+- pip install django-rest-auth[with_social]
+
+----------------------------------------------------------------------------
+
+- INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',
+    
+    'custom_user_account',
+    
+    'rest_framework',
+    'rest_framework.authtoken',
+    
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
+]
+
+SITE_ID = 1
+
+----------------------------------------------------------------------------
+
+- don't forget to add SITE_ID = 1
+
+----------------------------------------------------------------------------
+
+- add following configuration lines inside settings.py:
+
+	# REST_AUTH and ALLAUTH
+	ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+	ACCOUNT_AUTHENTICATION_METHOD = 'email'
+	ACCOUNT_EMAIL_VERIFICATION = 'none'
+	ACCOUNT_USERNAME_REQUIRED = False
+	ACCOUNT_EMAIL_REQUIRED = True
+	ACCOUNT_UNIQUE_EMAIL = True
+
+----------------------------------------------------------------------------
+
+- inside my_user.url:
+
+urlpatterns = [
+    path('', include('django.contrib.auth.urls')), 
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls'))
+]
+
+----------------------------------------------------------------------------
+
+- migrate
+
+---------------------------------------------------------------------------
+- TO REGISTER
+	
+	.../rest-auth/registration/ (POST)
+	
+	{
+		"email":"<enter_user_email>",
+		"password1":"<enter_user_password>",
+		"password2":"<repeat_user_password>"
+	}
+
+	
+	response: 
+
+	{
+	    "key": "34045a98a6d8cb0427699a05100c6c2287368717"
+	}
+
+	on frontend app save this response inside LocalStorage,
+	and with every next request to server add header:
+	
+	Authorization: Token <key>
+
+----------------------------------------------------------------------------
+
+- TO LOGIN
+
+	.../rest-auth/login/ (POST)
+
+	{
+		"email":"<enter_user_email>",
+		"password":"<enter_user_password>"
+	}
+
+	response:
+
+	{
+	    "key": "34045a98a6d8cb0427699a05100c6c2287368717"
+	}
+
+	on frontend app save this response inside LocalStorage,
+	and with every next request to server add header:
+	
+	Authorization: Token <key>
+
+----------------------------------------------------------------------------
+
+- TO RESET PASSWORD
+
+	.../rest-auth/password/reset/ (POST)
+
+	{
+		"email":"<enter_user_email>"
+	}
+
+	response:
+
+	{
+	    "detail": "Password reset e-mail has been sent."
+	}
+	
+	1)	user receive mail from our SMTP server(see SMTPconf.txt)
+		with custom link that contains encoded (base64) uid(user id) and user's token:
+
+		SPECIFIC EXAMPLE:
+		<a href="https://dodep.club/auth/reset-password/api/auth/reset/Mw/5e0-596d28ae3dcd7e6a3f11/" target="_blank">
+		Click To Reset Password
+		</a>
+		
+		COMMON EXAMPLE:
+		<a href="https://<frontend_app_domain><some_frontend_url>{% url 'password_reset_confirm' uidb64=uid token=token %}">
+		Click To Reset Password
+		</a>
+
+		***for more info see dj-password-reset-email.txt***
+
+	2)	user click link and go to our frontend app with credentials (uid and token) inside url
+	
+	3)	frontend app handle request .../<EMAIL_uid>/<EMAIL_token>/ and show user a form:
+		
+		<form method="POST">		
+		
+		<label>new password</label>	
+		<input type="password" name="new_password1">
+
+		<label>confirm password</label>	
+		<input type="password" name="new_password2">
+
+		<button type="submit">Reset Password</button>
+
+		</form>
+
+		***
+		new password
+		------------------
+		|		 |
+		------------------
+		
+		confirm password
+		------------------
+		|		 |
+		------------------
+
+		------------------
+		| Reset password |
+		------------------
+		***
+
+	4) 	user fill the form and send data to:
+
+		.../rest-auth/password/reset/confirm/ (POST)
+
+		{
+			"uid":"EMAIL_uid", 			#auto filled with url params
+			"token":"EMAIL_token", 			#auto filled with url params
+			"new_password1":"new_password1",	#user writes
+			"new_passsword2":"new_password2"	#user writes
+		}
+
+		response:
+
+		{
+		    "detail": "Password has been reset with the new password."
+		}
+	
+	5)	user login with new password
+
+----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

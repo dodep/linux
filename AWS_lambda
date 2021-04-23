@@ -1,0 +1,19 @@
+lambda + API Gateway
+
+tutorial:
+https://www.youtube.com/watch?v=uFsaiEhr1zs&ab_channel=BeABetterDev
+
+AWS SDK for Python: boto3
+https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
+
+1) Create lambda
+
+2) Create REST API
+ 
+- create resourse (www.domain.com/<resourse>) 
+
+- create method for that resourse (GET, POST, PUT, DELETE ...)
+Use Lambda Proxy integration check! 
+Choose Lambda function to invoke
+
+- deploy API

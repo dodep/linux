@@ -1,0 +1,36 @@
+1. Download source code.
+eg.
+https://sourceforge.net/
+____________________________
+2. Extract.
+
+$ tar -xf <downloaded_file>
+eg.
+$ tar -xf mpg123-1.26.4.tar.bz2 
+____________________________
+3. cd to extracted dir.
+
+eg.
+$ cd mpg123-1.26.4/
+____________________________
+4. Run ./configure inside extracted dir.
+
+eg.
+$ ./configure 
+____________________________
+5. Run make command inside extracted dir.
+
+eg.
+$ make
+____________________________
+6. Run make install command inside extracted dir.
+
+eg.
+$ sudo make install
+____________________________
+7. Run ldconfig command.
+
+$ sudo ldconfig
+____________________________
+
+DONE.

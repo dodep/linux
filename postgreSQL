@@ -1,0 +1,116 @@
+CREATE DATABASE <db_name>;
+DROP DATABASE <db_name>;
+
+new_db=> CREATE TABLE person (
+new_db(> id INT,
+new_db(> first_name VARCHAR(50),
+new_db(> last_name VARCHAR(50),
+new_db(> gender VARCHAR(7),
+new_db(> date_of_birth DATE,
+new_db(> car_id BIGINT REFERENCES car (id),
+new_db(> UNIQUE(car_id) );
+CREATE TABLE
+
+
+
+CREATE TABLE dup_countries AS 
+(SELECT * 
+FROM countries)  
+WITH NO DATA;
+
+
+CREATE TABLE dup_countries
+AS SELECT * 
+FROM  countries;
+
+
+new_db=> \d
+          List of relations
+ Schema |  Name   | Type  |   Owner   
+--------+---------+-------+-----------
+ public | person  | table | test_user
+ public | person2 | table | test_user
+(2 rows)
+
+
+new_db=> \d person
+                         Table "public.person"
+    Column     |         Type          | Collation | Nullable | Default 
+---------------+-----------------------+-----------+----------+---------
+ id            | integer               |           |          | 
+ first_name    | character varying(50) |           |          | 
+ last_name     | character varying(50) |           |          | 
+ gender        | character varying(7)  |           |          | 
+ date_of_birth | date                  |           |          | 
+
+new_db=> DROP TABLE person;
+
+
+new_db=# INSERT INTO person (first_name, last_name, gender, date_of_birth)
+new_db-# VALUES ('John', 'Doe', 'MALE', date '1991-01-09');
+INSERT 0 1
+
+
+new_db=# SELECT * FROM person;
+ id | first_name | last_name | gender | date_of_birth | email 
+----+------------+-----------+--------+---------------+-------
+  1 | John       | Doe       | MALE   | 1991-01-09    | 
+(1 row)
+
+new_db=# \i /home/a/Downloads/person.sql
+
+new_db=# SELECT first_name, last_name FROM person;
+
+new_db=# SELECT * FROM person ORDER BY country_of_bitrh ASC;
+new_db=# SELECT * FROM person ORDER BY country_of_bitrh DESC;
+new_db=# SELECT * FROM person ORDER BY country_of_bitrh, first_name DESC;
+
+SELECT DISTINCT country_of_bitrh FROM person ORDER BY country_of_bitrh;
+
+new_db=# SELECT * FROM person WHERE gender = 'Male';
+
+new_db=# SELECT * FROM person WHERE gender = 'Male' AND country_of_bitrh = 'Poland';
+
+new_db=# SELECT * FROM person WHERE gender = 'Male' AND (country_of_bitrh = 'Poland' OR country_of_bitrh = 'China');
+
+new_db=# SELECT * FROM person LIMIT 10;
+new_db=# SELECT * FROM person OFFSET 10 LIMIT 10;
+new_db=# SELECT * FROM person FETCH FIRST 5 ROW ONLY;
+
+new_db=# SELECT * FROM person WHERE  country_of_bitrh IN ('China', 'Brazil', 'France');
+new_db=# SELECT * FROM person WHERE date_of_birth BETWEEN DATE '2000-01-01' AND '2020-01-01';
+
+new_db=# SELECT * FROM person WHERE email LIKE '%.com'; # % == any chars , 
+ILIKE no case sensetive
+new_db=# SELECT * FROM person WHERE email LIKE '_______@%'; # _ == 1 char
+
+
+new_db=# SELECT country_of_bitrh , COUNT(*) FROM person GROUP BY country_of_bitrh;
+
+
+         country_of_bitrh         | count 
+----------------------------------+-------
+ Bangladesh                       |     3
+ Indonesia                        |   104
+ Venezuela                        |     7
+ Cameroon                         |     2
+ Luxembourg                       |     3
+ Czech Republic                   |    12
+
+
+new_db=# SELECT country_of_bitrh , COUNT(*) FROM person GROUP BY country_of_bitrh HAVING COUNT(*) > 5;
+
+new_db=# SELECT * FROM car WHERE price = (SELECT MAX(price) FROM car);
+new_db=# SELECT * FROM car WHERE price = (SELECT MIN(price) FROM car);
+new_db=# SELECT AVG(price) FROM car;
+
+new_db=# SELECT make, model, MIN(price) FROM car GROUP BY make, model;
+
+new_db=# DELETE FROM car  WHERE make = 'Lexus';
+new_db=# DELETE FROM car;
+
+new_db=# UPDATE car SET make = 'Benz' WHERE make = 'Mercedes-Benz';
+
+
+new_db=# SELECT DISTINCT make FROM car;
+

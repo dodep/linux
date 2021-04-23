@@ -1,0 +1,26 @@
+version: '3'
+services:
+  #hostname, container network name http://mongodb...  
+  mongodb:
+    #container name
+    container_name: mongodb
+    #container image
+    image: mongo
+    #ports HOST:DOCKER CONTAINER
+    ports:
+      - 27017:27017
+    #enviroment variables
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    #restart container if fails
+    restart: unless-stopped
+    #wait until redis is built
+    depends_on:
+      - redis
+  #hostname, container network name http://redis...  
+  redis:
+  #container image
+    image: redis
+
+    

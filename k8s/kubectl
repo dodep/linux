@@ -1,0 +1,100 @@
+minikube - to <start|stop|delete> cluster
+kubectl  - to configure cluster
+
+0. Install kubectl.
+
+$ snap install kubectl --classic
+$ kubectl version --client
+___________________________
+1. Get help info.
+
+$ kubectl --help
+
+OR
+
+$ kubectl <command> --help
+eg.
+$ kubectl create --help
+___________________________
+2.1 Get list of cluster entities. <namespace|node|deployment|pod|service|replicaset|hpa>
+
+$ kubectl get <namespace|node|deployment|pod|service|replicaset|hpa>
+
+2.2 Get a specific cluster entity.
+
+$ kubectl get <namespace|nodes|deployment|pod|service|replicaset> <entity_name> #entity_name from 2.1
+
+2.3 Get a specific cluster entity with extra info.
+
+$ kubectl get <namespace|nodes|deployment|pod|service|replicaset> <entity_name> -o wide #entity_name from 2.1
+
+2.4 Get a specific cluster entity in a yaml format.
+
+$ kubectl get <namespace|nodes|deployment|pod|service|replicaset> <entity_name> -o yaml #entity_name from 2.1
+
+2.5 Get all cluster entities.
+
+$ kubectl get all
+____________________________
+3.1 Detailed description of entity.
+
+$ kubectl describe <namespace|node|service|deployment|replicaset|pod>
+
+3.2 Detailed description of specific entity.
+
+$ kubectl describe <namespace|node|service|deployment|replicaset|pod> <entity_name> #entity_name from 2.1
+____________________________
+4. Get inside container.
+
+$ kubectl exec -it <pod_name> -- /bin/bash #pod_name from:$ kubectl get pod
+eg.
+$ kubectl exec -it nginx-depl-7fc44fc5d4-pflr7 -- /bin/bash
+__________________________
+5. Create entity.
+
+DON'T USE
+$ kubectl create <namespace|node|service|deployment|replicaset|pod> <options>
+USE
+S kubectl apply -f <file.yaml>
+__________________________
+6. Edit entity.
+
+$  KUBE_EDITOR="nano" kubectl edit <namespace|node|service|deployment|replicaset|pod> <entity_name> #entity_name from 2.1
+eg.
+$  KUBE_EDITOR="nano" kubectl edit deployment nginx-depl
+__________________________
+7. Delete entity.
+
+$ kubectl delete  <namespace|node|service|deployment|replicaset|pod> <entity_name> #entity_name from 2.1
+eg.
+$ kubectl delete deployment mongo-depl
+
+OR delete deployment by deleting yaml file
+(if deployment was created by 6.2)
+$ kubectl delete -f config.yaml
+__________________________
+8. Start LoadBalancer type service in minikube.
+
+$ minikube service <service_name> #service_name from 2.1: $ kubectl get service
+eg.
+$ minikube service mongo-express-service 
+__________________________
+9. Enable ingress.
+
+$ minikube addons enable ingress
+__________________________
+10. Port forward.
+
+$ kubectl port-forward <pod_name> <host_port>:<pod_port>
+__________________________
+11. Scale deployment.
+
+$ kubectl scale deployment <deployment_name> --replicas <nember_of_replicas>
+__________________________
+12. Auto scale deployment.
+
+$ kubectl autoscale deployment <deployment_name> --min=<minimum_number_of_replicas> --max=<maximum_number_of_replicas> <metrics eg. --cpu-percent=80> 
+__________________________
+13. kubectl set image ...
+14. kubectl rollout ...
+15. 

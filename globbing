@@ -1,0 +1,11 @@
+#################GLOBBING###################
+
+* any char
+
+? single char
+
+[ABC]om  Aom Bom Com
+OR
+[A-C]
+
+[A-Za-z] 

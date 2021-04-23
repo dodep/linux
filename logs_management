@@ -1,0 +1,9 @@
+Linux Log Management
+
+/var/log
+$ logrotate ‐ rotates, compresses, and mails system logs
+ 
+$ journalctl - Query the systemd journal
+$ dmesg - print or control the kernel ring buffer
+$ logger - enter messages into the system log
+

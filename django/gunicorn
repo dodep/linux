@@ -1,0 +1,23 @@
+inside venv 
+1) install gunicorn:
+
+pip3 install gunicorn
+
+2) create gunicorn_conf.py file inside manage.py directory:
+
+sudo touch gunicorn_conf.py
+
+3) edit gunicorn config file:
+
+sudo nano gunicorn_conf.py
+
+nano: 
+
+bind = "127.0.0.1:8000"
+workers = 3 #(cpu cores * 2) + 1 
+reload = True
+
+4) test:
+#from the root directory of django project(where manage.py file)
+gunicorn <directory_with_settings.py>.wsgi:application -c gunicorn_config.py
+

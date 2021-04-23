@@ -1,0 +1,19 @@
+UFW
+
+1. Allow ssh connection on port 22. 
+
+$ ufw allow ssh
+_______________
+2. Make sure rule is applied.
+
+$ ufw show added
+_______________
+3. Enable firefall.
+
+$ ufw enable
+_______________
+4. Check status.
+
+$ ufw status
+_______________
+

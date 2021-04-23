@@ -1,0 +1,80 @@
+https://www.tecmint.com/install-wordpress-with-apache-in-ubuntu-20-04/
+
+0. require LAMP
+________________
+1. Install latest version of wordpress.
+
+1.1
+$ wget -c http://wordpress.org/latest.tar.gz
+
+1.2
+$ tar -xvf latest.tar.gz
+
+1.3
+$ sudo cp -R wordpress /var/www/html/mysite.com
+
+1.4
+$ sudo chown -R www-data:www-data /var/www/html/mysite.com
+$ sudo chmod -R 775 /var/www/html/mysite.com
+________________
+2. Create DB.
+
+2.1
+$ sudo mysql -u root -p
+password: db23
+
+2.2
+CREATE DATABASE mysite;
+
+2.3
+GRANT ALL PRIVILEGES ON mysite.* TO 'user1'@'localhost' IDENTIFIED BY '123';
+
+2.4
+FLUSH PRIVILEGES;
+
+2.5
+EXIT
+________________
+3. Create wp-config.
+
+3.1
+$ cd /var/www/html/mysite.com
+
+3.2
+$ sudo mv wp-config-sample.php wp-config.php
+
+3.3
+$ sudo nano wp-config.php
+
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'mysite' );	#see 2.2
+
+/** MySQL database username */
+define( 'DB_USER', 'user1' ); 	#see 2.3		
+
+/** MySQL database password */
+define( 'DB_PASSWORD', '123' );	#see 2.3
+________________
+4. Creating Apache VirtualHost for WordPress Website.
+
+4.1
+$ sudo nano /etc/apache2/sites-available/mysite.com.conf
+
+<VirtualHost *:80>
+	#ServerName mysite.com
+	#ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/html/mysite.com
+	#ErrorLog ${APACHE_LOG_DIR}/error.log
+	#CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+4.2
+$ sudo a2ensite mysite.com.conf
+
+4.3
+$ sudo systemctl reload apache2
+
+4.4
+make sure others sites-enabled not conflicting
+_________________
+

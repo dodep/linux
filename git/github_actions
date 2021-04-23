@@ -1,0 +1,28 @@
+https://github.com/dodep/asdg/blob/main/.github/workflows/main.yml
+
+name: github_actions
+
+on: 
+ branch
+  push:
+    branches: [ main ]
+
+jobs:
+ 
+  job1:
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v2
+    - name: run1 of job1
+      run: |
+        ls -la
+        echo "new_line" >> hello.txt
+        ls -la
+  job2:
+    runs-on: ubuntu-latest
+    needs: 
+    - job1
+    steps:
+      - uses: actions/checkout@v2
+      - name: run2 of job2
+        run: ls -la 

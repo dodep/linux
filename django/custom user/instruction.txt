@@ -1,0 +1,25 @@
+- inside models.py create:
+	class CustomUser(AbstractBaseUser, PermissionsMixin):
+		pass
+
+- create managers.py file
+
+- create forms.py file
+
+- customize admin.py file
+
+- inside setting.py add following line:
+	AUTH_USER_MODEL = '<app-name-that-contains-custom-user-model>.<name-of-custom_user-model>'
+	in my case it's:
+	AUTH_USER_MODEL = 'my_user.CustomUSer'
+
+- python3 manage.py makemigrations my_user <appname-that-contains-custom-user-model>
+
+- python3 manage.py migrate
+
+- to call custom user model:
+	from django.conf import settings
+	
+	user = settings.AUTH_USER_MODEL
+
+	
