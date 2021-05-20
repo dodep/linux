@@ -1,0 +1,16 @@
+URL:
+https://github.com/kubernetes/ingress-nginx/issues/5401
+https://stackoverflow.com/questions/61365202/nginx-ingress-service-ingress-nginx-controller-admission-not-found
+
+ERROR:
+Error from server (InternalError): error when creating "ingress.yaml": Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": an error on the server ("") has prevented the request from succeeding
+
+OR
+
+...Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": Post "https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1beta1/ingresses?timeout=10s": x509: certificate signed by unknown authority
+
+
+SOLUTION:
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+_____________________________________________
+

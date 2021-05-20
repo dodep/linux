@@ -48,4 +48,16 @@ __________________________
 
 $ minikube ip
 __________________________
-9. 
+9. Enable dashboard.
+
+$ minikube dashboard
+__________________________
+10. Enable Ingress (nginx).
+
+$ minikube addons enable ingress
+__________________________
+11. Check addons.
+
+$ minikube addons list
+__________________________
+

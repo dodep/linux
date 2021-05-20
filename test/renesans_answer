@@ -1,0 +1,63 @@
+1. Вывести список из трех последних измененных файлов в каталоге /var/log/. Вывод должен содержать имя, размер, дату изменения файла и другую информацию
+1. ls -lht /var/log | head -4
+
+
+2. Вывести список из трех файлов максимального размера в каталоге /var/log/. Вывод должен содержать имя, размер, дату изменения файла и другую информацию. Размер файла должен содержать размерность (человекочитаемый формат)
+2. find /var/log -type f -printf '%s %t %u %y %p \n' | sort -nr | head -3 | numfmt  --to=si
+
+
+3. Напишите строку для crontab чтобы команда выполнялась каждые два часа
+3. 0 */2 * * * /path/to/script.sh
+
+
+4. Сгенерировать пароль из 10 символов из набора – маленькие и большие буквы английского алфавита, а также цифры
+4. cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 10
+
+
+5. Найти файлы php, которые были изменены за последние 4 часа
+5. find /path/to/files -type f -name '*.php' -mmin -240
+
+
+6. Удалить все файлы в директориях /var/tmp/nginx/cache/*. Сами директории не удалять
+6. find /var/tmp/nginx/cache/ -type f -delete
+
+
+7. Найти файлы размером более 100МБ
+7. find /path/to/files -type f -size +100M
+
+
+8. Вывести вчерашнюю дату без времени
+8. date -d '-1 day' '+%a %d %b %Y'
+
+
+9. Nginx: запретить доступ к скачиванию файлов .htaccess
+9. location ~ /\.ht {deny all;}
+   
+
+10. Что означает код 499 в access.log nginx?
+10. 499 CLIENT CLOSED REQUEST
+A non-standard status code introduced by nginx for the case when a client closes the connection while nginx is processing the request.
+
+https://github.com/nginx/nginx/blob/master/src/http/ngx_http_special_response.c#L399
+
+
+11. Access.log файл nginx ротируется каждые 3 часа. Выбрать из всех архивных файлов ошибки с кодом 500 по определенному сайту за последние 10 дней. В лог файле имя сайта присутствует.
+11. ~/file.py
+
+
+12. nginx: В лог файл пишется схема запроса (HTTP или HTTPS). Посчитать количество запросов с разными схемами.
+12. echo "HTTPS $(grep 'HTTPS/' /var/log/nginx/access.log | wc -l)" && echo "HTTP $(grep 'HTTP/' /var/log/nginx/access.log | wc -l)"
+
+**********************************************************************************************************************************************
+13. mysql: Показать все текущие запросы
+13. SHOW FULL PROCESSLIST; Or SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST;
+
+
+14. mysql:Сделать резервную копию всех баз данных. Копия должна быть заархивирована для экономии места.
+14. mysqldump --all-databases > all_databases_dump.sql | gzip > all_databases_dump.sql.gz
+
+
+15. Сделана резервная копия всех баз данных из mysql в один файл. Необходимо скопировать в отдельный файл из дампа мускула определенную БД (структуру и данные).
+15. mysql -p --one-database db1 < all_databases_dump.sql
+
+
